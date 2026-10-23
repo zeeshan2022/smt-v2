@@ -1,0 +1,58 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Icon from '../../components/Icon.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import CTASection from '../../components/CTASection.astro';
+import { services } from '../../data/services';
+import { SITE } from '../../data/site';
+
+const title = `Services — Cybersecurity, Infrastructure, AI & Event Technology Consulting in Dubai | ${SITE.name}`;
+const description =
+  'Consulting and delivery services in Dubai and the UAE: penetration testing, vulnerability assessment, network design, AI strategy and automation, projection mapping, interactive experiences, systems integration and managed support.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: services.map((s, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: { '@type': 'Service', name: s.title, description: s.summary, provider: { '@type': 'Organization', name: SITE.name } },
+  })),
+};
+---
+<PageLayout title={title} description={description}>
+  <script type="application/ld+json" sethtml={JSON.stringify(jsonLd)} slot="header" />
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <SectionHeading
+        eyebrow="Services"
+        title="Consulting and hands-on delivery — scoped, executed, supported"
+        sub="Five service lines covering the full lifecycle: assess, design, deploy, integrate and operate."
+      />
+      <div class="mt-12 space-y-6">
+        {services.map((sv) => (
+          <div class="glass rounded-xl p-6 sm:p-8 reveal" id={sv.slug}>
+            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+              <div>
+                <p class="font-mono-tech text-xs uppercase tracking-[0.25em] text-violet-glow">{sv.group}</p>
+                <h2 class="mt-1 text-2xl font-bold text-white">{sv.title}</h2>
+                <p class="mt-2 text-gray-400 max-w-3xl leading-relaxed">{sv.summary}</p>
+              </div>
+              <a href={`/services/${sv.slug}`} class="btn-outline shrink-0 justify-center">Full details <Icon name="arrow" class="w-4 h-4" /></a>
+            </div>
+            <div class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {sv.items.map((it) => (
+                <div class="rounded-lg bg-panel border border-line p-4">
+                  <h3 class="text-sm font-semibold text-cyan-glow">{it.name}</h3>
+                  <p class="mt-1 text-xs text-gray-400 leading-relaxed">{it.detail}</p>
+                </div>
+              ))}
+            </div>
+            <p class="mt-4 text-xs text-gray-500 font-mono-tech">// {sv.engagement}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <CTASection />
+</PageLayout>

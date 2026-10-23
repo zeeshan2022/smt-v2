@@ -1,43 +1,31 @@
 ---
-title: "Zero Trust for Live Events: Securing the Show Network"
-description: "How event IT teams should segment registration systems, vendor connections, AV control traffic and guest Wi-Fi — drawn from lessons running EXPO 2020 Dubai pavilion networks."
-pubDate: "2026-08-14"
+title: "Zero Trust for Live Events: Securing Badge Systems, Wi-Fi and Interactive Installations Under Crowd Pressure"
+description: "Smart badges, delegate portals and interactive kiosks turn events into attack surfaces. A practical zero-trust blueprint for event CIOs and venue operators in the GCC."
+pubDate: 2026-06-05
 author: "Zeeshan Haider"
-category: "Cybersecurity"
-readTime: "7 min"
-keywords: ["Event Cybersecurity UAE", "Network Segmentation Dubai", "Cybersecurity Dubai"]
+category: "Event Security"
+readTime: "6 min"
+keywords: ["Event Technology Dubai", "Cybersecurity UAE", "Smart Badge Platform"]
 ---
 
-Every large event is a temporary enterprise. In a single week, a venue gains hundreds of vendors, thousands of personal devices, payment flows, badge systems, and AV control networks that were never designed to coexist. Then the show opens — and everyone trusts everything.
+An exhibition stand is a distributed enterprise: badge scanners collecting visitor journeys, concierge tablets, interactive walls with embedded browsers, media PCs, temporary cabling run under carpets by contractors, and a 5G router someone brought from home.
 
-Having run IT operations across six months of EXPO 2020 Dubai, I watched this pattern daily: the most fragile moment in any deployment is not the build week, it is the first hour of doors-open, when every untested assumption meets a crowd.
+Then twelve thousand curious people arrive.
 
-## The four networks every event actually has
+## Assume the venue network is hostile territory
 
-In practice, an event network is at least four security domains wearing one VLAN ID:
+The model that works for events is not perimeter defense — it is segmentation plus identity:
 
-1. **Operational IT** — registration, access control, POS, badging databases.
-2. **AV & show control** — media servers, projectors, interactive exhibits, PLCs and embedded controllers. These devices are famously unpatchable and speak protocols with no authentication.
-3. **Vendor/contractor connectivity** — dozens of organisations you do not control, connecting unknown hardware.
-4. **Guest Wi‑Fi** — the public internet exit point for tens of thousands of attendees.
+- **Four zones minimum:** show-critical systems, operations/back-office, partner/exhibitor networks, and guest internet. No routing between them except explicitly allowed flows.
+- **Device identity for kiosks.** Every interactive installation gets a certificate or NAC posture check, not a shared WPA key printed on laminate.
+- **Badge and portal data is personal data.** Visitor journeys feed CRM systems that persist after the event. Encrypt in transit, restrict access by role, and set retention clocks before doors open — UAE data-protection law does not pause for show days.
 
-Treating these as one flat trust zone means a laptop on the exhibition floor can reach a media server driving a projection rig. That is how shows die.
+## The social layer is the main gate
 
-## A zero-trust layout that survives show days
+Attackers at events do not hack the firewall first; they clone a lanyard, plug into an unused port in a catering corridor, or ask a contractor for the admin password with confidence. Physical port security, cable audits each morning, and staff challenge procedures deliver more risk reduction than most software purchases.
 
-The model I apply starts from one premise: *assume every device on site is hostile until proven otherwise.*
+## Run an event SOC, not just an IT desk
 
-- **Strict segmentation.** Each domain above gets its own L3 boundary with explicit ACLs. Exhibit control traffic never routes to vendor SSIDs. Full stop.
-- **Identity before access.** Vendor access issues per-device credentials through a captive portal with short-lived leases rather than a shared key taped under a desk.
-- **Read-only monitoring on OT-ish gear.** Snort/Suricata sensors and NetFlow on the AV VLAN give you detection without touching fragile players. In our SOC work we pipe this into Splunk or QRadar alongside corporate logs so event anomalies get analyst attention, not silence.
-- **A documented incident ladder.** Who can power-cycle a media server at 09:00 on press day? If the answer requires a committee, rewrite it now, not then.
+Detection use-cases specific to events — unexpected DHCP servers, rogue APs near the plenary hall, brute force against the delegate portal, unusual outbound traffic from a media PC — belong in your SIEM before load-in, not after the first incident.
 
-## The human perimeter
-
-Phishing against event staff spikes during build weeks — fake exhibitor invoices and "urgent credential resets" land in inboxes full of strangers' emails by design. A 20-minute briefing to the crew does more than any appliance.
-
-## What good looks like
-
-When segmentation, monitoring and clear escalation paths work, they are invisible. The audience sees light and sound. The organiser sees uptime. That gap between spectacle and plumbing is exactly where a security partner earns their place on the show floor.
-
-*Secure Media Tech delivers Event SOC services — dedicated monitoring, threat detection and incident management for live events across the UAE and GCC.*
+This is precisely the gap our Event SOC product closes: security monitoring scoped to the event lifecycle, hardened alongside the experiences themselves. Great events deserve infrastructure as serious as their stage design.

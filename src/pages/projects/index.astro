@@ -1,0 +1,63 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Icon from '../../components/Icon.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import CTASection from '../../components/CTASection.astro';
+import { projects } from '../../data/projects';
+import { SITE } from '../../data/site';
+
+const categories = ['All', ...Array.from(new Set(projects.map((p) => p.category)))];
+
+const title = `Projects — EXPO 2020 Dubai, GITEX, Dubai Airshow & More | ${SITE.name}`;
+const description =
+  'Real deliveries across the region: 18 projection mapping installations at EXPO 2020 Dubai, AD360 interactive fan zones, GITEX, Dubai Airshow, NYUAD, Dubai Holding, RTA, Masdar, Aldar and ATM Dubai Police & Saudi.';
+---
+<PageLayout title={title} description={description}>
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <SectionHeading
+        eyebrow="Track Record"
+        title="Deployed at the events and enterprises that define this region"
+        sub="Not stock photography — these are installations our team designed, wired, configured, defended and operated on-site."
+      />
+      <div class="mt-8 flex flex-wrap gap-2" aria-label="Filter projects by category">
+        {categories.map((c, i) => (
+          <button type="button" data-filter={c.toLowerCase()}
+            class={`px-4 py-2 rounded-full text-sm font-medium border transition-colors ${i === 0 ? 'border-cyan-glow bg-cyan-glow/10 text-cyan-glow' : 'border-line text-gray-400 hover:border-cyan-glow/50 hover:text-cyan-glow'}`}>
+            {c}
+          </button>
+        ))}
+      </div>
+      <div class="mt-10 grid gap-6 lg:grid-cols-2">
+        {projects.map((pr) => (
+          <a href={`/projects/${pr.slug}`} data-category={pr.category.toLowerCase()}
+            class="glass rounded-xl p-6 sm:p-7 hover:border-cyan-glow/50 transition-colors reveal group">
+            <div class="flex items-center justify-between gap-3">
+              <span class="text-[11px] uppercase tracking-wider font-mono-tech px-2 py-1 rounded-full border border-line text-violet-glow">{pr.category}</span>
+              <span class="font-mono-tech text-xs text-gray-400">{pr.year}</span>
+            </div>
+            <h3 class="mt-4 text-lg sm:text-xl font-semibold text-white group-hover:text-cyan-glow transition-colors leading-snug">{pr.title}</h3>
+            <p class="mt-1 text-sm text-gray-400">{pr.client} · {pr.location}</p>
+            <p class="mt-3 text-sm text-gray-400 leading-relaxed line-clamp-3">{pr.summary}</p>
+            <ul class="mt-4 flex flex-wrap gap-1.5">
+              {pr.technologies.slice(0, 5).map((t) => (<li class="text-[11px] px-2 py-1 rounded bg-panel text-gray-300">{t}</li>))}
+            </ul>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <CTASection heading="Your venue or event could be next on this list." />
+</PageLayout>
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const cards = document.querySelectorAll<HTMLElement>('[data-category]');
+  buttons.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      buttons.forEach((b) => b.classList.remove('!border-cyan-glow', '!bg-cyan-glow/10', '!text-cyan-glow'));
+      btn.classList.add('!border-cyan-glow', '!bg-cyan-glow/10', '!text-cyan-glow');
+      const f = btn.dataset.filter;
+      cards.forEach((c) => { c.style.display = f === 'all' || c.dataset.category === f ? '' : 'none'; });
+    })
+  );
+</script>
