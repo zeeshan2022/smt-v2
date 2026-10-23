@@ -36,8 +36,8 @@ const jsonLd = {
       </nav>
       <div class="mt-6 flex flex-wrap items-center gap-3 text-xs font-mono-tech">
         <span class="px-2 py-1 rounded-full border border-line text-violet-glow uppercase tracking-wider">{post.data.category}</span>
-        <span class="text-gray-500">{post.data.pubDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-        <span class="text-gray-500">· {post.data.readTime} read · By {post.data.author}</span>
+        <span class="text-gray-400">{post.data.pubDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+        <span class="text-gray-400">· {post.data.readTime} read · By {post.data.author}</span>
       </div>
       <h1 class="mt-4 text-3xl sm:text-4xl font-bold text-white leading-tight">{post.data.title}</h1>
       <p class="mt-4 text-lg text-gray-400 leading-relaxed">{post.data.description}</p>

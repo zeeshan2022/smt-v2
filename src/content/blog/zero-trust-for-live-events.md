@@ -3,7 +3,7 @@ title: "Zero Trust for Live Events: Securing Badge Systems, Wi-Fi and Interactiv
 description: "Smart badges, delegate portals and interactive kiosks turn events into attack surfaces. A practical zero-trust blueprint for event CIOs and venue operators in the GCC."
 pubDate: 2026-06-05
 author: "Zeeshan Haider"
-category: "Event Security"
+category: "Cybersecurity"
 readTime: "6 min"
 keywords: ["Event Technology Dubai", "Cybersecurity UAE", "Smart Badge Platform"]
 ---

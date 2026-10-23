@@ -25,11 +25,11 @@ const jsonLd = {
 
   <section class="relative radial-glow cyber-grid py-20 px-4 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-5xl">
-      <p class="font-mono-tech text-cyan-glow text-xs tracking-[0.25em] uppercase reveal">// About Secure Media Tech</p>
-      <h1 class="mt-4 text-4xl sm:text-5xl font-bold leading-tight reveal">
+      <p class="font-mono-tech text-cyan-glow text-xs tracking-[0.25em] uppercase">// About Secure Media Tech</p>
+      <h1 class="mt-4 text-4xl sm:text-5xl font-bold leading-tight">
         Not an agency. A <span class="text-gradient">technology company</span> with a security soul and a showman's eye.
       </h1>
-      <p class="mt-6 text-lg text-gray-400 max-w-3xl leading-relaxed reveal">
+      <p class="mt-6 text-lg text-gray-400 max-w-3xl leading-relaxed">
         {SITE.name} is not a generic web agency, marketing shop, hosting reseller or IT support desk.
         We are a Dubai-based technology company focused on cybersecurity, enterprise infrastructure,
         artificial intelligence, automation, event intelligence, interactive experiences, smart venues,
@@ -53,7 +53,7 @@ const jsonLd = {
         <h3 class="mt-10 text-xl font-semibold text-white">Education</h3>
         <ul class="mt-3 space-y-2">
           {founder.education.map((ed) => (
-            <li class="flex items-center gap-3 text-sm text-gray-300"><Icon name="check" class="w-4 h-4 text-cyan-glow" /> {ed.degree} <span class="text-gray-500">({ed.year})</span></li>
+            <li class="flex items-center gap-3 text-sm text-gray-300"><Icon name="check" class="w-4 h-4 text-cyan-glow" /> {ed.degree} <span class="text-gray-400">({ed.year})</span></li>
           ))}
         </ul>
 
@@ -71,9 +71,9 @@ const jsonLd = {
           <p class="mt-4 font-semibold text-white">{founder.name}</p>
           <p class="text-sm text-gray-400">{founder.role}</p>
           <dl class="mt-4 space-y-2 text-sm">
-            <div class="flex justify-between"><dt class="text-gray-500">Location</dt><dd class="text-gray-200">{founder.location}</dd></div>
-            <div class="flex justify-between"><dt class="text-gray-500">Nationality</dt><dd class="text-gray-200">{founder.nationality}</dd></div>
-            <div class="flex justify-between"><dt class="text-gray-500">Experience</dt><dd class="text-gray-200">{founder.experience}</dd></div>
+            <div class="flex justify-between"><dt class="text-gray-400">Location</dt><dd class="text-gray-200">{founder.location}</dd></div>
+            <div class="flex justify-between"><dt class="text-gray-400">Nationality</dt><dd class="text-gray-200">{founder.nationality}</dd></div>
+            <div class="flex justify-between"><dt class="text-gray-400">Experience</dt><dd class="text-gray-200">{founder.experience}</dd></div>
           </dl>
           <div class="mt-4 flex flex-wrap gap-2">
             {founder.certifications.map((c) => <span class="chip">{c}</span>)}
