@@ -1,4 +1,5 @@
 ---
+import '../styles/global.css';
 import { SITE, WHATSAPP_URL } from '../data/site';
 import Icon from '../components/Icon.astro';
 
@@ -11,8 +12,102 @@ interface Props {
 const { title, description, ogType = 'website', noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url);
 const image = new URL('/og-default.png', Astro.site ?? SITE.url);
----
-import "../styles/global.css";
+
+// Organization schema (site-wide)
+const orgSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.name,
+  url: SITE.url,
+  logo: new URL('/favicon.svg', SITE.url).href,
+  foundingPerson: { '@type': 'Person', name: SITE.founder },
+  address: { '@type': 'PostalAddress', addressLocality: 'Dubai', addressCountry: 'AE' },
+  contactPoint: [{
+    '@type': 'ContactPoint',
+    telephone: SITE.mobile,
+    contactType: 'sales',
+    areaServed: ['AE', 'SA', 'QA', 'KW', 'BH', 'OM'],
+    availableLanguage: ['en', 'ar'],
+  }],
+});
+
+// ============================================================
+// ANALYTICS PLACEHOLDERS — replace IDs / enable per environment.
+// Kept as inert commented-out scripts (set:html strings) so the
+// Astro compiler never parses third-party snippet syntax.
+// To enable: paste your real IDs and remove the wrapping comments.
+// ============================================================
+const analyticsPlaceholders = [
+  // Google Tag Manager
+  `<!-- Google Tag Manager -->
+<!--
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+-->`,
+  // Google Analytics 4
+  `<!-- Google Analytics 4 -->
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+-->`,
+  // Microsoft Clarity
+  `<!-- Microsoft Clarity -->
+<!--
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "REPLACE-WITH-CLARITY-ID");
+</script>
+-->`,
+  // Meta (Facebook) Pixel
+  `<!-- Meta (Facebook) Pixel -->
+<!--
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', 'REPLACE-WITH-PIXEL-ID');
+  fbq('data', 'load');
+</script>
+-->`,
+  // LinkedIn Insight Tag
+  `<!-- LinkedIn Insight Tag -->
+<!--
+<script type="text/javascript">
+  _linkedin_partner_id = "REPLACE-WITH-PARTNER-ID";
+  window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+  window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+</script>
+<script type="text/javascript">
+  (function(l) { if (!l) { return; }
+  var s = document.getElementsByTagName("script")[0];
+  var b = document.createElement("script");
+  b.type = "text/javascript"; b.async = true;
+  b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+  s.parentNode.insertBefore(b, s); })(window._linkedin_partner_code);
+</script>
+-->`,
+].join('\n    ');
+
+const gtmNoscriptPlaceholder = `<!-- GTM noscript (enable together with the GTM script above) -->
+<!--
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+-->`;
 ---
 <!doctype html>
 <html lang="en">
@@ -45,76 +140,16 @@ import "../styles/global.css";
     <meta name="author" content={SITE.founder} />
 
     <!-- Organization schema (site-wide) -->
-    <script type="application/ld+json" sethtml={`{
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": ${JSON.stringify(SITE.name)},
-      "url": ${JSON.stringify(SITE.url)},
-      "logo": ${JSON.stringify(new URL('/favicon.svg', SITE.url).href)},
-      "foundingPerson": {"@type": "Person", "name": ${JSON.stringify(SITE.founder)}},
-      "address": {"@type": "PostalAddress", "addressLocality": "Dubai", "addressCountry": "AE"},
-      "contactPoint": [{
-        "@type": "ContactPoint",
-        "telephone": ${JSON.stringify(SITE.mobile)},
-        "contactType": "sales",
-        "areaServed": ["AE", "SA", "QA", "KW", "BH", "OM"],
-        "availableLanguage": ["en", "ar"]
-      }]
-    }`} />
+    <script type="application/ld+json" set:html={orgSchema} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
 
-    <!-- ============================================================
-         ANALYTICS PLACEHOLDERS — replace IDs / enable per environment
-         ============================================================ -->
-    <!-- Google Tag Manager -->
-    <!--
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
-    -->
-    <!-- Google Analytics 4 -->
-    <!--
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script>
-    -->
-    <!-- Microsoft Clarity -->
-    <!--
-    <script type="text/javascript">
-      (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "XXXXXXX");
-    </script>
-    -->
-    <!-- Meta (Facebook) Pixel -->
-    <!--
-    <script>
-      !function(f,b,e,v,n,t,s){...}('fbq','init','v2'); // Replace with pixel ID 000000000000000
-    </script>
-    -->
-    <!-- LinkedIn Insight Tag -->
-    <!--
-    <script>_linkedin_partner_id = "0000000";</script>
-    -->
-
-    
+    <Fragment set:html={analyticsPlaceholders} />
   </head>
   <body class="min-h-screen flex flex-col bg-base text-gray-300">
-    <!-- GTM noscript -->
-    <!--
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    -->
+    <Fragment set:html={gtmNoscriptPlaceholder} />
 
     <a class="skip-link" href="#main">Skip to main content</a>
     <slot name="header" />

@@ -2,7 +2,7 @@
 import PageLayout from '../../layouts/PageLayout.astro';
 import Icon from '../../components/Icon.astro';
 import CTASection from '../../components/CTASection.astro';
-import { solutions, getSolution } from '../../data/solutions';
+import { solutions } from '../../data/solutions';
 import { services } from '../../data/services';
 import { SITE } from '../../data/site';
 
@@ -10,9 +10,13 @@ export function getStaticPaths() {
   return solutions.map((s) => ({ params: { slug: s.slug }, props: { s } }));
 }
 const { s } = Astro.props;
+const key = s.slug.split('-')[0];
 const relatedServices = services.filter((sv) =>
-  sv.title.toLowerCase().includes(s.slug.split('-')[0]) || s.slug === 'managed-services' || false
+  sv.title.toLowerCase().includes(key)
 ).slice(0, 3);
+if (relatedServices.length < 3) {
+  relatedServices.push(...services.filter((sv) => !relatedServices.includes(sv)).slice(0, 3 - relatedServices.length));
+}
 
 const title = `${s.title} Solutions in Dubai & UAE | ${SITE.name}`;
 const description = `${s.summary} ${SITE.name} delivers ${s.title.toLowerCase()} solutions across the UAE — cybersecurity Dubai, AI solutions UAE, smart venue solutions and event technology Dubai, led by 14+ years of enterprise experience.`;
@@ -28,7 +32,7 @@ const jsonLd = {
 };
 ---
 <PageLayout title={title} description={description} ogType="article">
-  <script type="application/ld+json" sethtml={JSON.stringify(jsonLd)} slot="header" />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="header" />
   <section class="pt-16 pb-12 px-4 sm:px-6 lg:px-8 cyber-grid">
     <div class="mx-auto max-w-5xl">
       <nav aria-label="Breadcrumb" class="text-sm text-gray-400">
@@ -68,7 +72,7 @@ const jsonLd = {
         <div class="glass rounded-xl p-6">
           <h3 class="font-semibold text-white">Related services</h3>
           <ul class="mt-4 space-y-2 text-sm">
-            {services.slice(0, 4).map((sv) => (
+            {relatedServices.map((sv) => (
               <li><a class="text-cyan-glow hover:underline" href={`/services/${sv.slug}`}>{sv.title}</a></li>
             ))}
           </ul>
