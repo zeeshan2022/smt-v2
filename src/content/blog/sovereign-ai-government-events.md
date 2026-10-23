@@ -3,7 +3,7 @@ title: "Sovereign AI for Government Events: Why the UAE Should Never Ship Summit
 description: "Ministerial forums and national summits generate intelligence-grade content. Here is the architecture for AI transcription, summarisation and knowledge search that keeps every byte inside sovereign infrastructure."
 pubDate: 2026-09-30
 author: "Zeeshan Haider"
-category: "AI & Governance"
+category: "Artificial Intelligence"
 readTime: "7 min"
 keywords: ["Event Intelligence Platform UAE", "Sovereign AI", "Government Events Dubai"]
 ---

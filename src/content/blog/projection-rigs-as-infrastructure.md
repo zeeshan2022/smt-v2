@@ -3,7 +3,7 @@ title: "Projection Rigs Are Infrastructure: Lessons From Keeping 18 Installation
 description: "Six months, eighteen projection mapping installations, millions of visitors. What treating media servers like enterprise hosts taught us — and how to apply it to any venue."
 pubDate: 2026-08-18
 author: "Zeeshan Haider"
-category: "Event Technology"
+category: "Infrastructure"
 readTime: "6 min"
 keywords: ["Projection Mapping Dubai", "Event Technology Dubai", "Smart Venue Solutions UAE"]
 ---
