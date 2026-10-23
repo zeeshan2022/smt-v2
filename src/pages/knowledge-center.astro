@@ -1,0 +1,112 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Icon from '../components/Icon.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CTASection from '../components/CTASection.astro';
+import { SITE } from '../data/site';
+import { solutions } from '../data/solutions';
+import { products } from '../data/products';
+
+const title = `Knowledge Center — Frameworks, Checklists & Reference Architecture | ${SITE.name}`;
+const description =
+  'Open reference material from Secure Media Tech: zero-trust event architecture, HITL AI governance, venue network segmentation checklists and SOC playbooks drawn from EXPO 2020 Dubai and enterprise operations.';
+
+const resources = [
+  {
+    icon: 'shield',
+    name: 'Zero-Trust Event Architecture Note',
+    type: 'Architecture',
+    summary: 'How pavilion and exhibition networks were segmented at EXPO 2020 Dubai: exhibit VLANs, guest WiFi isolation, control-plane ACLs and monitoring on every endpoint.',
+    keywords: ['Event Security', 'Network Segmentation', 'NAC'],
+  },
+  {
+    icon: 'brain',
+    name: 'HITL AI Governance Checklist',
+    type: 'AI Governance',
+    summary: 'The human-in-the-loop gates we require before any AI-generated session summary, transcript or avatar response is published or broadcast.',
+    keywords: ['AI Summary Approval', 'Content Safety', 'Audit Trail'],
+  },
+  {
+    icon: 'radar',
+    name: 'Venue SOC Playbook Starter',
+    type: 'Security Operations',
+    summary: 'Detection use-cases for live venues: media-server anomalies, badge-system abuse, crowd-sensor spoofing and ransomware behaviour during event weeks.',
+    keywords: ['SIEM Rules', 'Splunk', 'QRadar', 'Incident Response'],
+  },
+  {
+    icon: 'network',
+    name: 'Smart Venue Network Design Sheet',
+    type: 'Infrastructure',
+    summary: 'Capacity planning for high-density venues: WiFi survey methodology, uplink redundancy (HSRP), QoS for AV-over-IP and BGP multihoming for command centres.',
+    keywords: ['WiFi Survey', 'QoS', 'Redundancy'],
+  },
+  {
+    icon: 'server',
+    name: 'Projection Rig Hardening Baseline',
+    type: 'Operations',
+    summary: 'Build standard for media PCs and show controllers: disk-less boot where possible, application allow-listing, patch windows between show cycles, nightly health checks.',
+    keywords: ['Patch Governance', 'Allow-listing', 'Day-Two Ops'],
+  },
+  {
+    icon: 'lock',
+    name: 'Compliance Readiness Map (UAE)',
+    type: 'GRC',
+    summary: 'Mapping ISO 27001 / NIST controls to UAE entity obligations, with evidence-packaging templates used in real audit preparation.',
+    keywords: ['ISO 27001', 'NIST', 'Audit Evidence'],
+  },
+];
+
+const glossary = [
+  ['Sovereign Deployment', 'Running platforms inside infrastructure the client or state controls — on-premise, sovereign cloud or hybrid — rather than public multi-tenant SaaS.'],
+  ['HITL (Human-in-the-Loop)', 'A mandatory human approval step between AI output generation and publication/broadcast, with full audit logging.'],
+  ['Digital Twin', 'A live virtual model of a physical venue fed by occupancy, device and environmental telemetry for monitoring and analytics.'],
+  ['Event SOC', 'A security operations capability scoped to an event lifecycle — pre-event hardening, live detection, post-event forensics.'],
+  ['Day-Two Operations', 'Everything after go-live: monitoring, calibration, spares rotation, incident playbooks. Where most event technology actually fails.'],
+];
+---
+<PageLayout title={title} description={description}>
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl">
+      <SectionHeading
+        eyebrow="Knowledge Center"
+        title="Reference material we use on real engagements"
+        sub="Condensed from SOC floors, healthcare data centres and six months of Expo day-two operations. Use freely — this is how we believe technology should be shared."
+      />
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {resources.map((r) => (
+          <div class="glass rounded-xl p-6 reveal">
+            <span class="inline-flex w-10 h-10 items-center justify-center rounded-lg bg-cyan-glow/15 text-cyan-glow"><Icon name={r.icon} class="w-5 h-5" /></span>
+            <p class="mt-3 font-mono-tech text-[11px] uppercase tracking-widest text-violet-glow">{r.type}</p>
+            <h3 class="mt-1 font-semibold text-white leading-snug">{r.name}</h3>
+            <p class="mt-2 text-sm text-gray-400 leading-relaxed">{r.summary}</p>
+            <ul class="mt-4 flex flex-wrap gap-1.5">
+              {r.keywords.map((k) => (<li class="text-[11px] px-2 py-0.5 rounded bg-panel border border-line text-gray-300">{k}</li>))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-14">
+        <h2 class="text-2xl font-bold text-white">Working glossary</h2>
+        <dl class="mt-6 space-y-4">
+          {glossary.map(([term, def]) => (
+            <div class="glass rounded-lg p-5">
+              <dt class="font-semibold text-cyan-glow">{term}</dt>
+              <dd class="mt-1 text-sm text-gray-400 leading-relaxed">{def}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <div class="mt-14 glass rounded-xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <h3 class="font-semibold text-white">Want these applied to your environment?</h3>
+          <p class="text-sm text-gray-400 mt-1">{solutions.length} solution lines · {products.length} products · one accountable engineering partner.</p>
+        </div>
+        <a href="/contact" class="btn-primary shrink-0">Talk to Engineering <Icon name="arrow" class="w-4 h-4" /></a>
+      </div>
+    </div>
+  </section>
+  <CTASection />
+</PageLayout>

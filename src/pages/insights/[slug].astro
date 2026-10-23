@@ -1,0 +1,85 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Icon from '../../components/Icon.astro';
+import CTASection from '../../components/CTASection.astro';
+import { getCollection, render } from 'astro:content';
+import { SITE } from '../../data/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const others = (await getCollection('blog')).filter((p) => p.slug !== post.slug).slice(0, 3);
+
+const title = `${post.data.title} | ${SITE.name} Insights`;
+const description = post.data.description;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description,
+  datePublished: post.data.pubDate.toISOString(),
+  author: { '@type': 'Person', name: post.data.author, jobTitle: 'Founder, ' + SITE.name },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  keywords: post.data.keywords.join(', '),
+  mainEntityOfPage: `${SITE.url}/insights/${post.slug}`,
+};
+---
+<PageLayout title={title} description={description} ogType="article">
+  <script type="application/ld+json" sethtml={JSON.stringify(jsonLd)} slot="header" />
+  <article class="pt-16 pb-10 px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl">
+      <nav aria-label="Breadcrumb" class="text-sm text-gray-400">
+        <a href="/" class="hover:text-cyan-glow">Home</a> / <a href="/insights" class="hover:text-cyan-glow">Insights</a> / <span class="text-gray-300">{post.data.category}</span>
+      </nav>
+      <div class="mt-6 flex flex-wrap items-center gap-3 text-xs font-mono-tech">
+        <span class="px-2 py-1 rounded-full border border-line text-violet-glow uppercase tracking-wider">{post.data.category}</span>
+        <span class="text-gray-500">{post.data.pubDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+        <span class="text-gray-500">· {post.data.readTime} read · By {post.data.author}</span>
+      </div>
+      <h1 class="mt-4 text-3xl sm:text-4xl font-bold text-white leading-tight">{post.data.title}</h1>
+      <p class="mt-4 text-lg text-gray-400 leading-relaxed">{post.data.description}</p>
+      <div class="mt-10 prose-article">
+        <Content />
+      </div>
+      {post.data.keywords.length > 0 && (
+        <ul class="mt-10 flex flex-wrap gap-2">
+          {post.data.keywords.map((k) => (<li class="text-xs px-2.5 py-1 rounded-full bg-panel border border-line text-cyan-glow">{k}</li>))}
+        </ul>
+      )}
+    </div>
+  </article>
+
+  {others.length > 0 && (
+    <section class="pb-14 px-4 sm:px-6 lg:px-8 border-t border-line">
+      <div class="mx-auto max-w-3xl">
+        <h2 class="text-xl font-bold text-white mb-6">Continue reading</h2>
+        <div class="space-y-4">
+          {others.map((o) => (
+            <a href={`/insights/${o.slug}`} class="glass rounded-lg p-5 block hover:border-cyan-glow/50 transition-colors">
+              <h3 class="font-semibold text-white">{o.data.title}</h3>
+              <p class="mt-1 text-sm text-gray-400">{o.data.category} · {o.data.readTime} read</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+  <CTASection />
+</PageLayout>
+
+<style is:global>
+  .prose-article h2 { color: #fff; font-weight: 700; font-size: 1.5rem; margin-top: 2.25rem; margin-bottom: 0.75rem; }
+  .prose-article h3 { color: #fff; font-weight: 600; font-size: 1.2rem; margin-top: 1.75rem; margin-bottom: 0.5rem; }
+  .prose-article p { margin-bottom: 1rem; line-height: 1.75; color: #d1d5db; }
+  .prose-article ul, .prose-article ol { margin: 0 0 1rem 1.25rem; color: #d1d5db; }
+  .prose-article li { margin-bottom: 0.4rem; line-height: 1.65; }
+  .prose-article blockquote { border-left: 3px solid #00e5ff; padding-left: 1rem; margin: 1.25rem 0; color: #9ca3af; font-style: italic; }
+  .prose-article a { color: #00e5ff; text-decoration: underline; }
+  .prose-article code { background: #111827; border: 1px solid rgba(255,255,255,0.08); padding: 0.15rem 0.4rem; border-radius: 0.35rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; color: #00ff88; }
+  .prose-article pre { background: #0b1120; border: 1px solid rgba(255,255,255,0.08); border-radius: 0.6rem; padding: 1rem; overflow-x: auto; margin-bottom: 1.25rem; }
+  .prose-article strong { color: #fff; }
+</style>

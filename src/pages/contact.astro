@@ -1,0 +1,135 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Icon from '../components/Icon.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CTASection from '../components/CTASection.astro';
+import { solutions } from '../data/solutions';
+import { products } from '../data/products';
+import { services } from '../data/services';
+import { projects } from '../data/projects';
+import { SITE } from '../data/site';
+
+const title = `Contact Secure Media Tech — Cybersecurity, AI & Event Technology Experts in Dubai | ${SITE.mobileDisplay}`;
+const description =
+  'Contact Secure Media Tech in Dubai, UAE. Call +971 58 20 35980, WhatsApp us, or send a project brief for cybersecurity, infrastructure, AI automation, event intelligence and interactive experience technology.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  mainEntity: {
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+    telephone: SITE.mobile,
+    email: SITE.email,
+    address: { '@type': 'PostalAddress', addressLocality: 'Dubai', addressCountry: 'AE' },
+  },
+};
+---
+<PageLayout title={title} description={description}>
+  <script type="application/ld+json" sethtml={JSON.stringify(jsonLd)} slot="header" />
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl grid gap-12 lg:grid-cols-5">
+      <div class="lg:col-span-2">
+        <SectionHeading eyebrow="Contact" title="Start the conversation" sub="We reply within one business day — usually the same hour on WhatsApp. Briefs under NDA welcome." />
+        <div class="mt-8 space-y-4">
+          <a href={`tel:${SITE.mobile}`} class="glass rounded-xl p-5 flex items-center gap-4 hover:border-cyan-glow/50 transition-colors">
+            <span class="w-11 h-11 rounded-lg bg-cyan-glow/15 text-cyan-glow flex items-center justify-center shrink-0"><Icon name="phone" class="w-5 h-5" /></span>
+            <span><span class="block text-xs text-gray-500 font-mono-tech">MOBILE</span><span class="text-white font-semibold">{SITE.mobileDisplay}</span></span>
+          </a>
+          <a href="https://wa.me/971582035980" target="_blank" rel="noopener" class="glass rounded-xl p-5 flex items-center gap-4 hover:border-green-glow/50 transition-colors">
+            <span class="w-11 h-11 rounded-lg bg-green-glow/15 text-green-glow flex items-center justify-center shrink-0"><Icon name="whatsapp" class="w-5 h-5" /></span>
+            <span><span class="block text-xs text-gray-500 font-mono-tech">WHATSAPP</span><span class="text-white font-semibold">{SITE.mobileDisplay}</span></span>
+          </a>
+          <a href={`tel:${SITE.office}`} class="glass rounded-xl p-5 flex items-center gap-4 hover:border-cyan-glow/50 transition-colors">
+            <span class="w-11 h-11 rounded-lg bg-violet-glow/15 text-violet-glow flex items-center justify-center shrink-0"><Icon name="building" class="w-5 h-5" /></span>
+            <span><span class="block text-xs text-gray-500 font-mono-tech">OFFICE</span><span class="text-white font-semibold">{SITE.officeDisplay}</span></span>
+          </a>
+          <a href={`mailto:${SITE.email}`} class="glass rounded-xl p-5 flex items-center gap-4 hover:border-cyan-glow/50 transition-colors">
+            <span class="w-11 h-11 rounded-lg bg-cyan-glow/15 text-cyan-glow flex items-center justify-center shrink-0"><Icon name="mail" class="w-5 h-5" /></span>
+            <span><span class="block text-xs text-gray-500 font-mono-tech">EMAIL</span><span class="text-white font-semibold">{SITE.email}</span></span>
+          </a>
+          <div class="glass rounded-xl p-5 flex items-center gap-4">
+            <span class="w-11 h-11 rounded-lg bg-cyan-glow/15 text-cyan-glow flex items-center justify-center shrink-0"><Icon name="map" class="w-5 h-5" /></span>
+            <span><span class="block text-xs text-gray-500 font-mono-tech">LOCATION</span><span class="text-white font-semibold">{SITE.location}</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-3">
+        <form id="lead-form" method="dialog" class="glass rounded-2xl p-6 sm:p-8 space-y-5">
+          <h2 class="text-2xl font-bold text-white">Project Brief</h2>
+          <p class="text-sm text-gray-400">Submitting opens WhatsApp with your brief pre-filled — nothing is stored server-side, keeping your data sovereign too.</p>
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-300 mb-1.5">Full name *</label>
+              <input id="name" name="name" required autocomplete="name" class="w-full rounded-lg bg-panel border border-line px-4 py-2.5 text-white placeholder-gray-500 focus:border-cyan-glow focus:outline-none" placeholder="Your name" />
+            </div>
+            <div>
+              <label for="org" class="block text-sm font-medium text-gray-300 mb-1.5">Organisation</label>
+              <input id="org" name="org" autocomplete="organization" class="w-full rounded-lg bg-panel border border-line px-4 py-2.5 text-white placeholder-gray-500 focus:border-cyan-glow focus:outline-none" placeholder="Company / entity" />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-300 mb-1.5">Email *</label>
+              <input id="email" type="email" name="email" required autocomplete="email" class="w-full rounded-lg bg-panel border border-line px-4 py-2.5 text-white placeholder-gray-500 focus:border-cyan-glow focus:outline-none" placeholder="you@company.com" />
+            </div>
+            <div>
+              <label for="phone" class="block text-sm font-medium text-gray-300 mb-1.5">Phone</label>
+              <input id="phone" type="tel" name="phone" autocomplete="tel" class="w-full rounded-lg bg-panel border border-line px-4 py-2.5 text-white placeholder-gray-500 focus:border-cyan-glow focus:outline-none" placeholder="+971…" />
+            </div>
+            <div class="sm:col-span-2">
+              <label for="interest" class="block text-sm font-medium text-gray-300 mb-1.5">Area of interest *</label>
+              <select id="interest" name="interest" required class="w-full rounded-lg bg-panel border border-line px-4 py-2.5 text-white focus:border-cyan-glow focus:outline-none">
+                <option value="">Select…</option>
+                <optgroup label="Solutions">{solutions.map((s) => (<option value={s.title}>{s.title}</option>))}</optgroup>
+                <optgroup label="Products">{products.map((p) => (<option value={p.title}>{p.code} — {p.title}</option>))}</optgroup>
+                <optgroup label="Services">{services.map((v) => (<option value={v.title}>{v.title}</option>))}</optgroup>
+                <option value="Projects ({projects.length}+ delivered)">Event / Project enquiry</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="sm:col-span-2">
+              <label for="message" class="block text-sm font-medium text-gray-300 mb-1.5">Brief *</label>
+              <textarea id="message" name="message" required rows="5" class="w-full rounded-lg bg-panel border border-line px-4 py-2.5 text-white placeholder-gray-500 focus:border-cyan-glow focus:outline-none" placeholder="Venue size, dates, scope, deadlines — whatever you have. Rough is fine."></textarea>
+            </div>
+          </div>
+          <label class="flex items-start gap-3 text-sm text-gray-400">
+            <input type="checkbox" id="consent" required class="mt-1 accent-[#00E5FF]" />
+            I agree to be contacted about my enquiry in line with the <a href="/privacy" class="text-cyan-glow underline">Privacy Policy</a>.
+          </label>
+          <button type="submit" class="btn-primary w-full justify-center !py-3"><Icon name="whatsapp" class="w-5 h-5" /> Send via WhatsApp</button>
+          <p id="form-status" class="text-sm text-green-glow hidden">Opening WhatsApp with your brief…</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-20 px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl glass rounded-2xl p-6 sm:p-8">
+      <h2 class="text-xl font-bold text-white">Who we help</h2>
+      <p class="mt-2 text-sm text-gray-400">Government · Healthcare · Education · Enterprise · Events & Exhibitions · Real Estate · Hospitality · Transportation · Technology · Smart Cities · Defense</p>
+      <div class="mt-5 flex flex-wrap gap-3">
+        <a href="/projects" class="btn-outline">See project track record</a>
+        <a href="/company-profile.pdf" class="btn-outline"><Icon name="download" class="w-4 h-4" /> Download Company Profile</a>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+<script>
+  const form = document.getElementById('lead-form') as HTMLFormElement;
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const text = [
+      `Hello Secure Media Tech!`,
+      `Name: ${d.get('name')}`,
+      d.get('org') ? `Organisation: ${d.get('org')}` : '',
+      `Email: ${d.get('email')}`,
+      d.get('phone') ? `Phone: ${d.get('phone')}` : '',
+      `Interest: ${d.get('interest')}`,
+      `Brief: ${d.get('message')}`,
+    ].filter(Boolean).join('\n');
+    document.getElementById('form-status')?.classList.remove('hidden');
+    window.open(`https://wa.me/971582035980?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+  });
+</script>
