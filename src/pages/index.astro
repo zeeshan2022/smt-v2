@@ -29,33 +29,55 @@ const jsonLd = {
 <PageLayout title={title} description={description}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
-  <!-- HERO -->
+  <!-- HERO — elegant, minimal first screen -->
   <section class="relative overflow-hidden radial-glow cyber-grid">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-24 lg:pt-28">
-      <p class="font-mono-tech text-cyan-glow text-xs sm:text-sm tracking-[0.3em] uppercase">// Dubai · United Arab Emirates — Enterprise Technology Studio</p>
-      <h1 class="mt-5 text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] max-w-5xl">
-        Building <span class="text-gradient">Secure Digital Experiences</span>, Intelligent Venues & Enterprise Technology.
+    <!-- Floating glow accents -->
+    <div aria-hidden="true" class="pointer-events-none absolute -top-24 right-[-10%] w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-cyan-glow/10 blur-3xl glow-orb"></div>
+    <div aria-hidden="true" class="pointer-events-none absolute bottom-[-20%] left-[-8%] w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-violet-glow/10 blur-3xl glow-orb" style="animation-delay:-4s"></div>
+
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-28 pb-20 sm:pt-32 sm:pb-24 lg:pt-36 flex flex-col justify-center">
+      <p class="hero-static font-mono-tech text-cyan-glow text-[11px] sm:text-sm tracking-[0.3em] uppercase">// Dubai · UAE</p>
+      <h1 class="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] max-w-3xl">
+        {['Building', 'Secure', 'Digital', 'Experiences'].map((w, i) => (
+          <span class="word-mask"><span class={i === 1 || i === 2 ? 'text-gradient' : undefined} style={`animation-delay:${i * 90}ms`}>{w}</span></span>
+        ))}{' '}
+        <span class="word-mask"><span class="text-gradient" style="animation-delay:360ms">&amp;</span></span>{' '}
+        <span class="word-mask"><span class="text-gradient" style="animation-delay:450ms">Intelligent Venues</span></span>
       </h1>
-      <p class="mt-6 max-w-2xl text-lg text-gray-400 leading-relaxed">
-        Secure Media Tech unites cybersecurity, artificial intelligence, infrastructure engineering and
-        world-stage event technology under one roof — the same team that delivered 18 projection mapping
-        installations across six months of EXPO&nbsp;2020 Dubai operations.
+      <p class="hero-static mt-5 max-w-xl text-base sm:text-lg text-gray-400 leading-relaxed">
+        Cybersecurity, AI and world-stage event technology — engineered by one team in Dubai.
       </p>
-      <div class="mt-9 flex flex-wrap gap-4">
+      <div class="hero-static mt-8 flex flex-wrap gap-4">
         <a href="/contact" class="btn-primary"><Icon name="arrow" class="w-5 h-5" /> Request a Proposal</a>
         <a href="/products" class="btn-outline"><Icon name="cpu" class="w-5 h-5" /> Explore Products</a>
         <!-- Company Profile button hidden on main screen per client request — re-enable by uncommenting: -->
         <!-- <a href="/company-profile.pdf" download class="btn-outline"><Icon name="download" class="w-5 h-5" /> Company Profile</a> -->
       </div>
+      <a href="#credentials" class="hero-static mt-12 inline-flex items-center gap-2 text-xs font-mono-tech text-gray-500 hover:text-cyan-glow transition-colors w-fit" aria-label="Scroll to company credentials">
+        DISCOVER <span class="animate-bounce">↓</span>
+      </a>
+    </div>
+  </section>
 
-      <!-- Terminal strip -->
-      <div class="mt-14 glass rounded-xl p-4 sm:p-5 font-mono-tech text-xs sm:text-sm max-w-3xl reveal" aria-label="Company credentials summary">
+  <!-- CREDENTIALS — moved below the fold -->
+  <section id="credentials" class="py-16 px-4 sm:px-6 lg:px-8 border-b border-line scroll-mt-20">
+    <div class="mx-auto max-w-7xl grid lg:grid-cols-2 gap-10 items-center">
+      <div class="reveal glass rounded-xl p-5 sm:p-6 font-mono-tech text-xs sm:text-sm" aria-label="Company credentials summary">
         <p class="text-green-glow">$ smt --profile --verbose</p>
         <p class="mt-2 text-gray-300">founder ........... {founder.name} — Information Security Associate Manager</p>
         <p class="text-gray-300">experience ........ {founder.experience} across security, infra &amp; event tech</p>
         <p class="text-gray-300">certifications ..... {founder.certifications.join(', ')}</p>
         <p class="text-gray-300">flagship .......... Sovereign Event Intelligence Platform</p>
         <p class="text-cyan-glow">deployed_at ...... EXPO 2020 · GITEX · Dubai Airshow · AD360 · ATM · NYUAD · RTA · Masdar · Aldar</p>
+      </div>
+      <div class="reveal">
+        <p class="font-mono-tech text-cyan-glow text-xs tracking-[0.25em] uppercase mb-3">// One partner, the full stack</p>
+        <h2 class="text-2xl sm:text-3xl font-bold leading-tight">From the SOC console to the show-control rack.</h2>
+        <p class="mt-4 text-gray-400 leading-relaxed max-w-xl">
+          Secure Media Tech unites cybersecurity, artificial intelligence, infrastructure engineering
+          and world-stage event technology under one roof — the same team that delivered 18 projection
+          mapping installations across six months of EXPO&nbsp;2020 Dubai operations.
+        </p>
       </div>
     </div>
   </section>
