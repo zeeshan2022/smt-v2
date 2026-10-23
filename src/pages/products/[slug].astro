@@ -2,7 +2,7 @@
 import PageLayout from '../../layouts/PageLayout.astro';
 import Icon from '../../components/Icon.astro';
 import CTASection from '../../components/CTASection.astro';
-import { products, getProduct } from '../../data/products';
+import { products } from '../../data/products';
 import { SITE } from '../../data/site';
 
 export function getStaticPaths() {
@@ -27,7 +27,7 @@ const jsonLd = {
 };
 ---
 <PageLayout title={title} description={description} ogType="article">
-  <script type="application/ld+json" sethtml={JSON.stringify(jsonLd)} slot="header" />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="header" />
   <section class="pt-16 pb-12 px-4 sm:px-6 lg:px-8 cyber-grid">
     <div class="mx-auto max-w-5xl">
       <nav aria-label="Breadcrumb" class="text-sm text-gray-400">
