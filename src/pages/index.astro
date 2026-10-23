@@ -1,0 +1,191 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Icon from '../../components/Icon.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import CTASection from '../../components/CTASection.astro';
+import { SITE } from '../../data/site';
+import { solutions } from '../../data/solutions';
+import { products } from '../../data/products';
+import { projects } from '../../data/projects';
+import { industries, founder } from '../../data/expertise';
+
+const title = `${SITE.name} | Cybersecurity, AI & Event Technology Company in Dubai, UAE`;
+const description =
+  'Secure Media Tech builds secure digital experiences, intelligent venues and enterprise technology solutions in Dubai — cybersecurity, AI automation, event intelligence, projection mapping, smart venues and systems integration. 14+ years led by Zeeshan Haider (CEH, CHFI, CISSP).';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.name,
+  url: SITE.url,
+  publisher: { '@type': 'Organization', name: SITE.name, founder: { '@type': 'Person', name: founder.name } },
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${SITE.url}/insights?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
+};
+---
+<PageLayout title={title} description={description}>
+  <script type="application/ld+json" sethtml={JSON.stringify(jsonLd)} />
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden radial-glow cyber-grid">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-24 lg:pt-28">
+      <p class="font-mono-tech text-cyan-glow text-xs sm:text-sm tracking-[0.3em] uppercase reveal">// Dubai · United Arab Emirates — Enterprise Technology Studio</p>
+      <h1 class="mt-5 text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] max-w-5xl reveal">
+        Building <span class="text-gradient">Secure Digital Experiences</span>, Intelligent Venues & Enterprise Technology.
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg text-gray-400 leading-relaxed reveal">
+        Secure Media Tech unites cybersecurity, artificial intelligence, infrastructure engineering and
+        world-stage event technology under one roof — the same team that delivered 18 projection mapping
+        installations across six months of EXPO&nbsp;2020 Dubai operations.
+      </p>
+      <div class="mt-9 flex flex-wrap gap-4 reveal">
+        <a href="/contact" class="btn-primary"><Icon name="arrow" class="w-5 h-5" /> Request a Proposal</a>
+        <a href="/products" class="btn-outline"><Icon name="cpu" class="w-5 h-5" /> Explore Products</a>
+        <a href="/company-profile.pdf" download class="btn-outline"><Icon name="download" class="w-5 h-5" /> Company Profile</a>
+      </div>
+
+      <!-- Terminal strip -->
+      <div class="mt-14 glass rounded-xl p-4 sm:p-5 font-mono-tech text-xs sm:text-sm max-w-3xl reveal" aria-label="Company credentials summary">
+        <p class="text-green-glow">$ smt --profile --verbose</p>
+        <p class="mt-2 text-gray-300">founder ........... {founder.name} — Information Security Associate Manager</p>
+        <p class="text-gray-300">experience ........ {founder.experience} across security, infra &amp; event tech</p>
+        <p class="text-gray-300">certifications ..... {founder.certifications.join(', ')}</p>
+        <p class="text-gray-300">flagship .......... Sovereign Event Intelligence Platform</p>
+        <p class="text-cyan-glow">deployed_at ...... EXPO 2020 · GITEX · Dubai Airshow · AD360 · ATM · NYUAD · RTA · Masdar · Aldar</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="border-y border-line bg-surface">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div><p class="text-4xl font-bold text-white font-display">14+</p><p class="mt-1 text-sm text-gray-400">Years in Enterprise Technology</p></div>
+      <div><p class="text-4xl font-bold text-white font-display">18</p><p class="mt-1 text-sm text-gray-400">Projection Mappings at EXPO 2020</p></div>
+      <div><p class="text-4xl font-bold text-white font-display">12</p><p class="mt-1 text-sm text-gray-400">Industries Served Across GCC</p></div>
+      <div><p class="text-4xl font-bold text-white font-display">10</p><p class="mt-1 text-sm text-gray-400">Proprietary Product Lines</p></div>
+    </div>
+  </section>
+
+  <!-- SOLUTIONS -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <SectionHeading eyebrow="Solutions" title="One partner across the full technology stack" sub="From the SOC console to the show-control rack — eight solution lines engineered by practitioners, not sales engineers." />
+      <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {solutions.map((s) => (
+          <a href={`/solutions/${s.slug}`} class="reveal card-hover block rounded-xl border border-line bg-panel p-6 group">
+            <span class="inline-flex w-11 h-11 items-center justify-center rounded-lg bg-cyan-glow/10 text-cyan-glow">
+              <Icon name={s.icon} class="w-6 h-6" />
+            </span>
+            <h3 class="mt-4 font-semibold text-white group-hover:text-cyan-glow transition-colors">{s.title}</h3>
+            <p class="mt-2 text-sm text-gray-400 leading-relaxed">{s.summary}</p>
+            <span class="mt-4 inline-flex items-center gap-1 text-xs font-mono-tech text-violet-glow">EXPLORE →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8 bg-surface border-y border-line">
+    <div class="mx-auto max-w-7xl">
+      <SectionHeading eyebrow="Products" title="Ten products built from real deployments" sub="Every product line below was conceived inside live operations — EXPO pavilions, healthcare IT, security operations centres — then engineered for market." />
+      <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {products.slice(0, 6).map((p) => (
+          <a href={`/products/${p.slug}`} class="reveal card-hover block rounded-xl border border-line bg-panel p-6">
+            <p class="font-mono-tech text-xs text-green-glow">{p.code} · {p.category.toUpperCase()}</p>
+            <h3 class="mt-2 text-lg font-semibold text-white">{p.title}</h3>
+            <p class="mt-2 text-sm text-gray-400">{p.tagline}</p>
+          </a>
+        ))}
+      </div>
+      <div class="mt-8 text-center">
+        <a href="/products" class="btn-outline justify-center">View All 10 Products <Icon name="arrow" class="w-4 h-4" /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PROJECTS -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <SectionHeading eyebrow="Projects" title="Proven on the region's biggest stages" sub="A selection from our delivery record across the UAE and Saudi Arabia." />
+      <div class="mt-12 grid md:grid-cols-3 gap-5">
+        {projects.slice(0, 3).map((pr) => (
+          <a href={`/projects/${pr.slug}`} class="reveal card-hover block rounded-xl border border-line bg-panel overflow-hidden">
+            <div class="h-32 cyber-grid bg-gradient-to-br from-surface to-panel flex items-end p-4">
+              <span class="chip">{pr.year}</span>
+            </div>
+            <div class="p-6">
+              <p class="font-mono-tech text-xs text-cyan-glow">{pr.client}</p>
+              <h3 class="mt-2 font-semibold text-white leading-snug">{pr.title}</h3>
+              <p class="mt-2 text-sm text-gray-400 line-clamp-3">{pr.summary}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="mt-8 text-center">
+        <a href="/projects" class="btn-outline justify-center">All Projects <Icon name="arrow" class="w-4 h-4" /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY SMT / FOUNDER -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8 bg-surface border-y border-line">
+    <div class="mx-auto max-w-7xl grid lg:grid-cols-2 gap-12 items-center">
+      <div class="reveal">
+        <p class="font-mono-tech text-cyan-glow text-xs tracking-[0.25em] uppercase mb-3">// Why Secure Media Tech</p>
+        <h2 class="text-3xl sm:text-4xl font-bold leading-tight">Security pedigree.<br />Show-floor craft.</h2>
+        <p class="mt-5 text-gray-400 leading-relaxed">
+          Most agencies choose a lane. We were forced into both: running national-scale security
+          governance as an Information Security Associate Manager by day, and keeping eighteen
+          projection rigs alive through a six-month world expo as IT Engineer by night.
+        </p>
+        <p class="mt-4 text-gray-400 leading-relaxed">
+          The result is technology that is simultaneously spectacular and defensible — experiences
+          auditors don't fear, and infrastructure marketers actually love.
+        </p>
+        <div class="mt-6 space-y-3">
+          {['CEH & CHFI-certified offensive security practice', 'CISSP-track governance and compliance leadership', 'Splunk · QRadar · LogRhythm SIEM engineering', 'Cisco CCNA networking through BGP/MPLS/QoS depth', 'Azure & AWS cloud integration', 'AI systems with human-in-the-loop guardrails'].map((item) => (
+            <p class="flex items-start gap-3 text-sm text-gray-200">
+              <Icon name="check" class="w-5 h-5 text-green-glow shrink-0" /> {item}
+            </p>
+          ))}
+        </div>
+        <a href="/about" class="btn-outline mt-8">Meet Founder {founder.name} <Icon name="arrow" class="w-4 h-4" /></a>
+      </div>
+      <div class="reveal grid grid-cols-3 gap-3">
+        {industries.map((ind) => (
+          <div class="rounded-lg border border-line bg-panel p-4 text-center text-xs sm:text-sm text-gray-300 font-medium">{ind}</div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHTS PREVIEW -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <SectionHeading eyebrow="Insights" title="Field notes from security & stage" sub="Written by the practitioner behind the company — no ghostwritten filler." />
+      <div class="mt-10 grid md:grid-cols-3 gap-5">
+        <a href="/insights/zero-trust-for-live-events" class="reveal card-hover block rounded-xl border border-line bg-panel p-6">
+          <p class="font-mono-tech text-xs text-violet-glow">CYBERSECURITY</p>
+          <h3 class="mt-2 font-semibold text-white">Zero Trust for Live Events</h3>
+          <p class="mt-2 text-sm text-gray-400">Securing the show network before doors open.</p>
+        </a>
+        <a href="/insights/sovereign-ai-government-events" class="reveal card-hover block rounded-xl border border-line bg-panel p-6">
+          <p class="font-mono-tech text-xs text-cyan-glow">AI & AUTOMATION</p>
+          <h3 class="mt-2 font-semibold text-white">Sovereign AI for Government Events</h3>
+          <p class="mt-2 text-sm text-gray-400">Why HITL approval is the whole product.</p>
+        </a>
+        <a href="/insights/projection-rigs-as-infrastructure" class="reveal card-hover block rounded-xl border border-line bg-panel p-6">
+          <p class="font-mono-tech text-xs text-green-glow">EVENT TECHNOLOGY</p>
+          <h3 class="mt-2 font-semibold text-white">Projection Rigs as Infrastructure</h3>
+          <p class="mt-2 text-sm text-gray-400">NOC-grade monitoring for immersive installs.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</PageLayout>

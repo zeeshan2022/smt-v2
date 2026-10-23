@@ -1,0 +1,74 @@
+---
+import { NAV_LINKS, SITE } from '../data/site';
+import Icon from './Icon.astro';
+
+const current = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? current === '/' : current.startsWith(href);
+---
+<header class="fixed top-0 inset-x-0 z-50">
+  <div class="glass border-b border-line/60">
+    <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16" aria-label="Main navigation">
+      <a href="/" class="flex items-center gap-2.5 group" aria-label={`${SITE.name} — Home`}>
+        <span class="relative inline-flex w-9 h-9 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-glow to-violet-glow text-base font-black">
+          <Icon name="shield" class="w-5 h-5 text-[#050816]" />
+        </span>
+        <span class="font-display font-bold text-white tracking-tight leading-none">
+          Secure<span class="text-cyan-glow">Media</span>Tech
+          <span class="block text-[10px] font-mono-tech tracking-[0.3em] text-gray-400 mt-0.5">DUBAI · UAE</span>
+        </span>
+      </a>
+
+      <ul class="hidden lg:flex items-center gap-1">
+        {NAV_LINKS.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              aria-current={isActive(link.href) ? 'page' : undefined}
+              class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                isActive(link.href) ? 'text-cyan-glow bg-cyan-glow/10' : 'text-gray-300 hover:text-white'
+              }`}
+            >{link.label}</a>
+          </li>
+        ))}
+      </ul>
+
+      <div class="hidden lg:flex items-center gap-3">
+        <a href={`tel:${SITE.mobile}`} class="flex items-center gap-2 text-sm text-gray-300 hover:text-cyan-glow transition-colors" aria-label={`Call ${SITE.mobileDisplay}`}>
+          <Icon name="phone" class="w-4 h-4" /> {SITE.officeDisplay}
+        </a>
+        <a href="/contact" class="btn-primary !py-2.5 !px-4 text-sm">Get a Proposal</a>
+      </div>
+
+      <button id="menu-toggle" class="lg:hidden p-2 text-gray-200" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <Icon name="menu" class="w-6 h-6" />
+      </button>
+    </nav>
+  </div>
+
+  <div id="mobile-menu" class="lg:hidden hidden glass border-b border-line" role="dialog" aria-label="Mobile navigation">
+    <ul class="px-4 py-3 space-y-1">
+      {NAV_LINKS.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            aria-current={isActive(link.href) ? 'page' : undefined}
+            class={`block px-3 py-2.5 rounded-md text-base font-medium ${isActive(link.href) ? 'text-cyan-glow bg-cyan-glow/10' : 'text-gray-200 hover:bg-panel'}`}
+          >{link.label}</a>
+        </li>
+      ))}
+      <li class="pt-2 flex gap-3">
+        <a href={`tel:${SITE.mobile}`} class="btn-outline flex-1 justify-center !py-2.5 text-sm"><Icon name="phone" class="w-4 h-4" /> Call</a>
+        <a href="/contact" class="btn-primary flex-1 justify-center !py-2.5 text-sm">Get a Proposal</a>
+      </li>
+    </ul>
+  </div>
+</header>
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  toggle?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('hidden') === false;
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+</script>

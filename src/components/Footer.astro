@@ -1,0 +1,75 @@
+---
+import { SITE, WHATSAPP_URL } from '../data/site';
+import { solutions } from '../data/solutions';
+import { products } from '../data/products';
+import Icon from './Icon.astro';
+---
+<footer class="border-t border-line bg-surface">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
+    <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-5">
+      <div class="lg:col-span-2">
+        <a href="/" class="flex items-center gap-2.5">
+          <span class="inline-flex w-9 h-9 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-glow to-violet-glow">
+            <Icon name="shield" class="w-5 h-5 text-[#050816]" />
+          </span>
+          <span class="font-display font-bold text-white text-lg">Secure<span class="text-cyan-glow">Media</span>Tech</span>
+        </a>
+        <p class="mt-4 text-sm leading-relaxed text-gray-400 max-w-sm">{SITE.tagline}</p>
+        <div class="mt-5 space-y-2 text-sm">
+          <a class="flex items-center gap-2 text-gray-300 hover:text-cyan-glow" href={WHATSAPP_URL} rel="noopener" target="_blank">
+            <Icon name="whatsapp" class="w-4 h-4 text-green-glow" /> WhatsApp {SITE.mobileDisplay}
+          </a>
+          <a class="flex items-center gap-2 text-gray-300 hover:text-cyan-glow" href={`tel:${SITE.mobile}`}>
+            <Icon name="phone" class="w-4 h-4" /> Mobile {SITE.mobileDisplay}
+          </a>
+          <a class="flex items-center gap-2 text-gray-300 hover:text-cyan-glow" href={`tel:${SITE.office}`}>
+            <Icon name="phone" class="w-4 h-4" /> Office {SITE.officeDisplay}
+          </a>
+          <p class="flex items-center gap-2 text-gray-300"><Icon name="map" class="w-4 h-4" /> {SITE.location}</p>
+        </div>
+      </div>
+
+      <nav aria-label="Solutions">
+        <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-3">Solutions</h3>
+        <ul class="space-y-2 text-sm">
+          {solutions.map((s) => (
+            <li><a class="text-gray-400 hover:text-cyan-glow transition-colors" href={`/solutions/${s.slug}`}>{s.title}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <nav aria-label="Products">
+        <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-3">Products</h3>
+        <ul class="space-y-2 text-sm">
+          {products.slice(0, 6).map((p) => (
+            <li><a class="text-gray-400 hover:text-cyan-glow transition-colors" href={`/products/${p.slug}`}>{p.title}</a></li>
+          ))}
+          <li><a class="text-cyan-glow font-medium" href="/products">All 10 Products →</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Company">
+        <h3 class="text-white font-semibold text-sm uppercase tracking-wider mb-3">Company</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a class="text-gray-400 hover:text-cyan-glow" href="/about">About & Founder</a></li>
+          <li><a class="text-gray-400 hover:text-cyan-glow" href="/projects">Projects</a></li>
+          <li><a class="text-gray-400 hover:text-cyan-glow" href="/case-studies">Case Studies</a></li>
+          <li><a class="text-gray-400 hover:text-cyan-glow" href="/insights">Insights & Blog</a></li>
+          <li><a class="text-gray-400 hover:text-cyan-glow" href="/knowledge-center">Knowledge Center</a></li>
+          <li><a class="text-gray-400 hover:text-cyan-glow" href="/technology-ecosystem">Technology Ecosystem</a></li>
+          <li><a class="text-gray-400 hover:text-cyan-glow" href="/contact">Contact</a></li>
+          <li>
+            <a class="text-green-glow" href="/company-profile.pdf" download>
+              <span class="inline-flex items-center gap-1.5"><Icon name="download" class="w-4 h-4" /> Company Profile</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="mt-12 pt-6 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
+      <p>© {new Date().getFullYear()} {SITE.name}. Dubai, UAE. Founded by {SITE.founder}. All rights reserved.</p>
+      <p class="font-mono-tech">SECURE · INTELLIGENT · SOVEREIGN</p>
+    </div>
+  </div>
+</footer>
