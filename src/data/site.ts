@@ -21,6 +21,9 @@ export const NAV_LINKS = [
   { label: 'Solutions', href: '/solutions' },
   { label: 'Products', href: '/products' },
   { label: 'Projects', href: '/projects' },
+  { label: 'Industries', href: '/industries' },
+  { label: 'Case Studies', href: '/case-studies' },
+  { label: 'Why SMT', href: '/why-smt' },
   { label: 'Insights', href: '/insights' },
   { label: 'Contact', href: '/contact' },
 ];
