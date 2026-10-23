@@ -1,0 +1,36 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Icon from '../../components/Icon.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import CTASection from '../../components/CTASection.astro';
+import { solutions } from '../../data/solutions';
+import { SITE } from '../../data/site';
+
+const title = `Solutions — Cybersecurity, Infrastructure, AI & Event Technology in Dubai | ${SITE.name}`;
+const description =
+  'Eight enterprise solution lines from Secure Media Tech in Dubai: cybersecurity, infrastructure, AI & automation, event intelligence, interactive experiences, smart venues, systems integration and managed services.';
+---
+<PageLayout title={title} description={description}>
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <SectionHeading
+        eyebrow="Solutions"
+        title="One partner across security, infrastructure, AI and live experience technology"
+        sub="Every solution below is delivered by engineers who have run mission-critical technology at EXPO 2020 Dubai, GITEX, Dubai Airshow and healthcare enterprises — not slideware teams."
+      />
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {solutions.map((s) => (
+          <a href={`/solutions/${s.slug}`} class="glass rounded-xl p-6 hover:border-cyan-glow/50 transition-colors reveal group">
+            <span class="inline-flex w-11 h-11 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-glow/20 to-violet-glow/20 text-cyan-glow">
+              <Icon name={s.icon} class="w-6 h-6" />
+            </span>
+            <h3 class="mt-4 font-semibold text-white group-hover:text-cyan-glow transition-colors">{s.title}</h3>
+            <p class="mt-2 text-sm text-gray-400 leading-relaxed">{s.summary}</p>
+            <span class="mt-4 inline-flex items-center gap-1 text-xs font-mono-tech text-cyan-glow">Explore <Icon name="arrow" class="w-3.5 h-3.5" /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <CTASection />
+</PageLayout>
