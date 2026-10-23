@@ -34,10 +34,7 @@ const isActive = (href: string) =>
       </ul>
 
       <div class="hidden lg:flex items-center gap-3">
-        <a href={`tel:${SITE.mobile}`} class="flex items-center gap-2 text-sm text-gray-300 hover:text-cyan-glow transition-colors" aria-label={`Call ${SITE.mobileDisplay}`}>
-          <Icon name="phone" class="w-4 h-4" /> {SITE.officeDisplay}
-        </a>
-        <a href="/company-profile.pdf" download class="btn-outline !py-2.5 !px-4 text-sm border-green-glow/60 text-green-glow"><Icon name="download" class="w-4 h-4" /> Company Profile</a>
+        <!-- Phone number & Company Profile removed from menu per client request (profile stays available at /company-profile.pdf) -->
         <a href="/contact" class="btn-primary !py-2.5 !px-4 text-sm">Get a Proposal</a>
       </div>
 
